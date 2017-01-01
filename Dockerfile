@@ -12,7 +12,7 @@ COPY start.sh ./start.sh
 
 RUN set -x \
       && apt-get update \
-      && apt-get install -y --no-install-recommends wget git cmake build-essential libhidapi-dev \
+      && apt-get install -y --no-install-recommends wget git cmake build-essential libhidapi-dev openssh-client \
       && rm -rf /var/lib/apt/lists/*
 
 RUN set -x \
@@ -37,7 +37,7 @@ RUN set -x \
       && rm -rf TEMPered \
       && sed -i "s%GRAPHITE_URL%"$GRAPHITE_URL"%" start.sh \
       && sed -i "s%GRAPHITE_PREFIX%"$GRAPHITE_PREFIX"%" start.sh \
-      && apt-get autoremove -y wget git cmake build-essential \
+      && apt-get autoremove -y wget git cmake build-essential openssh-client \
       && chmod +x start.sh
 
 CMD ["start.sh"]
