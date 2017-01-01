@@ -4,6 +4,9 @@ MAINTAINER Robert Schumann <gutmensch@n-os.org>
 
 ENV GRAPHITE_URL "graphite:2003"
 ENV GRAPHITE_PREFIX "room"
+
+ENV GIT_SSL_NO_VERIFY true
+ENV DEBIAN_FRONTEND noninteractive
 ENV PATH /opt:$PATH
 
 WORKDIR /opt
