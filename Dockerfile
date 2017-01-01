@@ -16,9 +16,7 @@ COPY start.sh ./start.sh
 RUN set -x \
       && apt-get update \
       && apt-get install -y --no-install-recommends wget git cmake build-essential libhidapi-dev openssh-client \
-      && rm -rf /var/lib/apt/lists/*
-
-RUN set -x \
+      && rm -rf /var/lib/apt/lists/* \
       && if [ ! -d ~/.ssh ]; then \
            echo "Add github.com to known_hosts"; \
            mkdir ~/.ssh && ssh-keyscan -H github.com >> ~/.ssh/known_hosts && chmod 600 ~/.ssh/known_hosts; \
@@ -33,9 +31,7 @@ RUN set -x \
       && cd build \
       && cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr . \
       && make \
-      && make install
-
-RUN set -x \
+      && make install \
       && cd /opt \
       && rm -rf TEMPered \
       && sed -i "s%GRAPHITE_URL%"$GRAPHITE_URL"%" start.sh \
