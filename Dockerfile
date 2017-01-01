@@ -16,6 +16,10 @@ RUN set -x \
       && rm -rf /var/lib/apt/lists/*
 
 RUN set -x \
+      && if [ ! -d ~/.ssh ]; then \
+           echo "Add github.com to known_hosts"; \
+           mkdir ~/.ssh && ssh-keyscan -H github.com >> ~/.ssh/known_hosts && chmod 600 ~/.ssh/known_hosts; \
+         fi \
       && git clone https://github.com/edorfaus/TEMPered.git \
       && cd TEMPered \
       && for i in 24 34 40 45 46; do \
