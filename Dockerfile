@@ -12,7 +12,7 @@ COPY start.sh ./start.sh
 
 RUN set -x \
       && apt-get update \
-      && apt-get install -y --no-install-recommends wget git cmake build-essential libhidapi-dev
+      && apt-get install -y --no-install-recommends wget git cmake build-essential libhidapi-dev \
       && rm -rf /var/lib/apt/lists/*
 
 RUN set -x \
