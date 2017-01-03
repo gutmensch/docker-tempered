@@ -15,12 +15,8 @@ COPY start.sh ./start.sh
 
 RUN set -x \
       && apt-get update \
-      && apt-get install -y --no-install-recommends wget git cmake build-essential libhidapi-dev openssh-client \
+      && apt-get install -y --no-install-recommends wget git cmake build-essential libhidapi-dev libusb-dev openssh-client \
       && rm -rf /var/lib/apt/lists/* \
-      && if [ ! -d ~/.ssh ]; then \
-           echo "Add github.com to known_hosts"; \
-           mkdir ~/.ssh && ssh-keyscan -H github.com >> ~/.ssh/known_hosts && chmod 600 ~/.ssh/known_hosts; \
-         fi \
       && git clone https://github.com/edorfaus/TEMPered.git \
       && cd TEMPered \
       && for i in 24 34 40 45 46; do \
@@ -34,6 +30,12 @@ RUN set -x \
       && make install \
       && cd /opt \
       && rm -rf TEMPered \
+      && git clone https://github.com/s-leroux/TEMPer2.git \
+      && cd TEMPer2 \
+      && make \
+      && cp temper /usr/bin/ \
+      && cd /opt \
+      && rm -rf TEMPer2 \
       && sed -i "s%GRAPHITE_URL%"$GRAPHITE_URL"%" start.sh \
       && sed -i "s%GRAPHITE_PREFIX%"$GRAPHITE_PREFIX"%" start.sh \
       && apt-get autoremove -y wget git cmake build-essential openssh-client \
